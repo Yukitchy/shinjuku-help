@@ -1,0 +1,248 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>body{margin:0}</style></head><body>
+<title>Incident Statement for Police</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<style>
+/* Layout: a form on top, the Japanese statement it builds underneath, read off a phone at a police counter. */
+:root{
+  --bg:#f3f5f7; --card:#ffffff; --fg:#17212b; --muted:#5a6773; --line:#d7dee5;
+  --accent:#1f5f8b; --paper:#fffdf8; --ink:#111111;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,sans-serif;
+  --jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161b; --card:#1a2128; --fg:#e8edf2; --muted:#9aa7b3; --line:#2c3640;
+  --accent:#7cb8e4; --paper:#fffdf8; --ink:#111111; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161b; --card:#1a2128; --fg:#e8edf2; --muted:#9aa7b3; --line:#2c3640;
+  --accent:#7cb8e4; --paper:#fffdf8; --ink:#111111; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);padding:0 16px;padding-block:24px 48px}
+main{max-width:640px;margin:0 auto;display:grid;gap:20px}
+h1{font-size:1.75rem;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:1.1rem;margin:0}
+p{margin:0}
+.lede,.small{color:var(--muted)} .small{font-size:.875rem}
+fieldset{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0;display:grid;gap:12px;min-width:0}
+legend{font-weight:700;padding:0 6px}
+label{display:grid;gap:4px;font-size:.9rem}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:1rem}
+.check input{width:20px;height:20px;margin-top:2px;flex:none}
+input[type=text],input[type=number],input[type=datetime-local],input[type=tel],textarea,select{
+  font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:100%;box-sizing:border-box}
+textarea{min-height:140px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:440px){.row{grid-template-columns:1fr}}
+.out{background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:18px;font-family:var(--jp);font-size:1.05rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
+.bar{display:flex;flex-wrap:wrap;gap:8px}
+button,.btn{font:inherit;font-size:.9rem;padding:9px 14px;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;text-decoration:none}
+button.primary{background:var(--accent);color:var(--card)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+summary{cursor:pointer;font-weight:700}
+</style>
+
+<main>
+  <header style="display:grid;gap:8px">
+    <h1>Incident Statement for Police</h1>
+    <p class="lede">Tick what happened and add details in English. The page writes a statement in Japanese at the bottom that you can show the officer. Nothing you type leaves your phone; it is only saved in this browser.</p>
+  </header>
+
+  <form id="f" autocomplete="off">
+    <div style="display:grid;gap:16px">
+      <fieldset><legend>When and where</legend>
+        <label for="dt">Date and time (best guess is fine)<input type="datetime-local" id="dt"></label>
+        <div class="row">
+          <label for="area">Area
+            <select id="area">
+              <option value="新宿・歌舞伎町">Kabukicho, Shinjuku</option>
+              <option value="新宿">Shinjuku (other)</option>
+              <option value="六本木">Roppongi</option>
+              <option value="渋谷">Shibuya</option>
+              <option value="池袋">Ikebukuro</option>
+              <option value="">Other / not sure</option>
+            </select>
+          </label>
+          <label for="venue">Club name (as written on the sign)<input type="text" id="venue" placeholder="e.g. Club ABC"></label>
+        </div>
+        <label for="addr">Address or how to find it (optional)<input type="text" id="addr" placeholder="e.g. 3rd floor, near Don Quijote"></label>
+      </fieldset>
+
+      <fieldset><legend>Who did it</legend>
+        <div class="row">
+          <label for="who">Who
+            <select id="who">
+              <option value="店の警備員（用心棒）">Club security / bouncers</option>
+              <option value="店のスタッフ">Club staff</option>
+              <option value="客引き">A tout on the street</option>
+              <option value="知らない人">A stranger</option>
+            </select>
+          </label>
+          <label for="n">How many people<input type="number" id="n" min="1" max="20" placeholder="e.g. 3"></label>
+        </div>
+        <label for="look">What they looked like (optional, English)<input type="text" id="look" placeholder="e.g. tall, black suit, shaved head"></label>
+      </fieldset>
+
+      <fieldset><legend>What they did</legend>
+        <div id="acts"></div>
+      </fieldset>
+
+      <fieldset><legend>Injuries and hospital</legend>
+        <div id="inj"></div>
+        <div class="row">
+          <label for="hdate">Hospital visit date<input type="text" id="hdate" placeholder="e.g. 10月8日"></label>
+          <label for="hname">Hospital name<input type="text" id="hname" placeholder="as on the receipt"></label>
+        </div>
+        <label for="diag">What the doctor said (English)<input type="text" id="diag" placeholder="e.g. bruised eye socket, no fracture"></label>
+      </fieldset>
+
+      <fieldset><legend>Drinks: why this was not just being drunk</legend>
+        <label for="drinks">How many drinks you had that night<input type="number" id="drinks" min="0" max="30" placeholder="e.g. 3"></label>
+        <div id="drug"></div>
+      </fieldset>
+
+      <fieldset><legend>Wallet and money</legend>
+        <div id="lost"></div>
+        <label for="cash">Cash in the wallet (yen, approx.)<input type="number" id="cash" min="0" placeholder="e.g. 20000"></label>
+      </fieldset>
+
+      <fieldset><legend>Proof you have</legend>
+        <div id="proof"></div>
+      </fieldset>
+
+      <fieldset><legend>In your own words</legend>
+        <label for="story">Tell the story in order, in English. Short sentences translate best.
+          <textarea id="story" placeholder="We arrived around midnight. A staff member brought us drinks we didn't order..."></textarea>
+        </label>
+        <p class="small">This part stays in English on the statement. Use the buttons below to get a Japanese version.</p>
+      </fieldset>
+
+      <fieldset><legend>Your contact details</legend>
+        <div class="row">
+          <label for="tel">Phone number<input type="tel" id="tel"></label>
+          <label for="hotel">Where you're staying<input type="text" id="hotel"></label>
+        </div>
+      </fieldset>
+
+      <fieldset><legend>What you want the police to do</legend>
+        <div id="want"></div>
+      </fieldset>
+    </div>
+  </form>
+
+  <section style="display:grid;gap:10px">
+    <h2>Show this to the officer</h2>
+    <div class="out" id="ja" lang="ja"></div>
+    <div class="bar">
+      <button type="button" class="primary" id="copyJa">Copy Japanese</button>
+      <a class="btn" id="gt" href="https://translate.google.com/?sl=en&tl=ja&op=translate" target="_blank" rel="noopener">Translate my story (Google)</a>
+      <button type="button" id="copyEn">Copy English to send Yuuki</button>
+    </div>
+    <p class="small">Send the English version to Yuuki on LINE. He'll check the Japanese and translate your story properly.</p>
+  </section>
+
+  <details>
+    <summary>What the Japanese says (English check)</summary>
+    <div class="out" id="en" style="font-family:var(--sans);margin-top:10px"></div>
+  </details>
+
+  <div class="bar"><button type="button" id="clear">Clear everything</button></div>
+</main>
+
+<script>
+// [id, English label, Japanese sentence]
+const OPT={
+  acts:[["punch","Punched me in the face","顔を拳で殴られました。"],["eye","Hit me in the eye","目を殴られました。"],["kick","Kicked me","蹴られました。"],["ground","Pushed or threw me to the ground","地面に倒されました。"],["held","Held me down","押さえつけられました。"],["drag","Dragged me outside","店の外へ引きずり出されました。"],["cont","Kept hitting me after I was down","倒れた後も暴行が続きました。"],["noreason","I did nothing to provoke them","私から手を出したり、挑発したりはしていません。"]],
+  inj:[["eyeshut","Eye swollen shut for a while","目が腫れて、しばらく開けられませんでした。"],["bruise","Bruises","あざができました。"],["cut","Cuts or bleeding","切り傷・出血がありました。"],["head","Headache or dizziness","頭痛・めまいがあります。"],["sleep","Slept for days afterwards","その後、数日ほとんど寝込んでいました。"]],
+  drug:[["gap","I have gaps in my memory","記憶が途切れている部分があります。"],["toomuch","I felt far more drunk than what I drank","飲んだ量に対して、異常に強く酔いました。"],["given","Staff or a stranger handed us drinks","店員または知らない人から飲み物を渡されました。"],["away","My drink was out of my sight at some point","飲み物から目を離した時間がありました。"],["friend","My friend had the same symptoms","一緒にいた友人も同じ症状でした。"],["charged","My friend was charged about $10,000 he did not agree to","友人のカードで、本人が同意していない約1万ドル（約150万円）の決済がされました。"]],
+  lost:[["wallet","My wallet is gone","財布がなくなりました。"],["cards","Credit/debit cards were in it","クレジットカード・デビットカードが入っていました。"],["license","My driver's license/ID was in it","運転免許証（身分証）が入っていました。"],["stolen","I think it was taken, not dropped","落としたのではなく、盗まれた可能性があると思います。"]],
+  proof:[["photos","Photos of my injuries","けがの写真"],["hosp","Hospital papers or receipt","病院の書類・領収書"],["stmt","Card statements with strange charges","不審な決済が載ったカード明細"],["receipt","Bar or club receipts","店のレシート"],["witness","My friend can confirm","一緒にいた友人の証言"]],
+  want:[["higai","File a damage report for the assault (被害届)","暴行について被害届を出したいです。"],["ishitsu","File a lost property report for the wallet (遺失届)","財布について遺失届を出したいです。"],["test","Get a drug test if it's still possible","可能であれば、薬物の検査を受けたいです。"],["number","Get a report number for insurance and my bank","保険と銀行のために受理番号をください。"],["interp","An English interpreter","英語の通訳をお願いします。"]]
+};
+const DEFAULT_ON=["higai","ishitsu","number","interp","wallet"];
+for(const [g,list] of Object.entries(OPT)){
+  document.getElementById(g).innerHTML=list.map(([id,en])=>`<label class="check" for="c_${id}"><input type="checkbox" id="c_${id}">${en}</label>`).join('');
+}
+const $=id=>document.getElementById(id);
+const v=id=>$(id).value.trim();
+const on=id=>$('c_'+id).checked;
+const pick=(g,lang)=>OPT[g].filter(([id])=>on(id)).map(o=>lang==='ja'?o[2]:o[1]);
+const WD='日月火水木金土';
+
+function jpDate(s){
+  if(!s)return '（日時不明）';
+  const d=new Date(s);const h=d.getHours(),m=d.getMinutes();
+  const ampm=h<12?'午前':'午後',h12=h%12===0&&h!==0?12:h%12;
+  return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WD[d.getDay()]}）${ampm}${h12}時${m?m+'分':''}ごろ`;
+}
+
+function build(){
+  const area=$('area').value, venue=v('venue');
+  const place=(area||'')+(venue?`のクラブ「${venue}」`:'の店');
+  const n=v('n'), who=$('who').value+(n?`${n}人`:'');
+  const ja=[];
+  ja.push('警察の方へ\n私はアメリカ国籍の旅行者です。下記の被害について相談し、届け出をしたいです。');
+  ja.push(`【日時】${jpDate($('dt').value)}`);
+  ja.push(`【場所】${place}${v('addr')?`（${v('addr')}）`:''}`);
+  ja.push(`【相手】${who}${v('look')?`\n特徴（英語）：${v('look')}`:''}`);
+  const acts=pick('acts','ja'); if(acts.length) ja.push('【被害の内容】\n'+acts.join('\n'));
+  const inj=pick('inj','ja');
+  const hosp=(v('hdate')||v('hname'))?`${v('hdate')}に${v('hname')||'病院'}を受診しました。`:'';
+  if(inj.length||hosp||v('diag')) ja.push('【けが】\n'+[...inj,hosp,v('diag')?`医師の説明（英語）：${v('diag')}`:''].filter(Boolean).join('\n'));
+  const drug=pick('drug','ja');
+  if(drug.length||v('drinks')){
+    const amt=v('drinks')?`その夜に飲んだのは約${v('drinks')}杯です。`:'';
+    ja.push('【薬物の疑い】\n'+[amt,...drug,'単なる飲み過ぎではなく、飲み物に薬物を入れられた疑いがあります。'].filter(Boolean).join('\n'));
+  }
+  const lost=pick('lost','ja');
+  if(lost.length||v('cash')) ja.push('【なくなった物】\n'+[...lost,v('cash')?`現金は約${Number(v('cash')).toLocaleString('ja-JP')}円入っていました。`:''].filter(Boolean).join('\n'));
+  const proof=pick('proof','ja'); if(proof.length) ja.push('【手元にある証拠】\n'+proof.map(s=>'・'+s).join('\n'));
+  if(v('story')) ja.push('【本人の説明（英語原文）】\n'+v('story'));
+  const want=pick('want','ja'); if(want.length) ja.push('【お願い】\n'+want.join('\n'));
+  if(v('tel')||v('hotel')) ja.push('【連絡先】\n'+[v('tel')&&`電話：${v('tel')}`,v('hotel')&&`滞在先：${v('hotel')}`].filter(Boolean).join('\n'));
+  $('ja').textContent=ja.join('\n\n');
+
+  const en=[];
+  en.push('To the police: I am a tourist from the US. I want to report the following and file reports.');
+  en.push(`When: ${$('dt').value?new Date($('dt').value).toLocaleString('en-US',{dateStyle:'full',timeStyle:'short'}):'unknown'}`);
+  en.push(`Where: ${$('area').selectedOptions[0].text}${venue?', club "'+venue+'"':''}${v('addr')?' ('+v('addr')+')':''}`);
+  en.push(`Who: ${$('who').selectedOptions[0].text}${n?', '+n+' people':''}${v('look')?' — '+v('look'):''}`);
+  const sec=(t,a)=>a.length&&en.push(t+':\n- '+a.join('\n- '));
+  sec('What they did',pick('acts','en'));
+  sec('Injuries',[...pick('inj','en'),(v('hdate')||v('hname'))&&`Hospital: ${v('hdate')} ${v('hname')}`.trim(),v('diag')&&'Doctor: '+v('diag')].filter(Boolean));
+  sec('Drinks',[v('drinks')&&`About ${v('drinks')} drinks that night`,...pick('drug','en')].filter(Boolean));
+  sec('Lost',[...pick('lost','en'),v('cash')&&`Cash: about ¥${v('cash')}`].filter(Boolean));
+  sec('Proof I have',pick('proof','en'));
+  if(v('story'))en.push('In my own words:\n'+v('story'));
+  sec('I want',pick('want','en'));
+  if(v('tel')||v('hotel'))en.push(`Contact: ${v('tel')} ${v('hotel')}`.trim());
+  $('en').textContent=en.join('\n\n');
+
+  $('gt').href='https://translate.google.com/?sl=en&tl=ja&op=translate&text='+encodeURIComponent(v('story').slice(0,4500));
+  save();
+}
+
+const KEY='incident-statement-v1';
+const fields=()=>[...document.querySelectorAll('#f input,#f select,#f textarea')];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(Object.fromEntries(fields().map(el=>[el.id,el.type==='checkbox'?el.checked:el.value]))))}catch{}}
+function load(){
+  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
+  if(!s){DEFAULT_ON.forEach(id=>$('c_'+id).checked=true);return}
+  fields().forEach(el=>{if(el.id in s){el.type==='checkbox'?el.checked=s[el.id]:el.value=s[el.id]}});
+}
+async function copy(btn,text,label){
+  try{await navigator.clipboard.writeText(text);btn.textContent='Copied'}
+  catch{btn.textContent='Copy failed, select the text by hand'}
+  setTimeout(()=>btn.textContent=label,2500);
+}
+$('f').addEventListener('input',build);
+$('f').addEventListener('change',build);
+$('copyJa').addEventListener('click',e=>copy(e.target,$('ja').textContent,'Copy Japanese'));
+$('copyEn').addEventListener('click',e=>copy(e.target,$('en').textContent,'Copy English to send Yuuki'));
+let armed=false;
+$('clear').addEventListener('click',e=>{
+  if(!armed){armed=true;e.target.textContent='Tap again to clear everything';setTimeout(()=>{armed=false;e.target.textContent='Clear everything'},3000);return}
+  try{localStorage.removeItem(KEY)}catch{}
+  $('f').reset();DEFAULT_ON.forEach(id=>$('c_'+id).checked=true);armed=false;e.target.textContent='Clear everything';build();
+});
+load();build();
+</script>
+</body></html>
